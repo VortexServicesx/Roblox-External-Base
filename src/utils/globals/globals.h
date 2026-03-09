@@ -48,4 +48,5 @@ namespace cfg {
     inline float name_color[3] = { 1.f, 1.f, 1.f };
     inline float health_color[3] = { 0.f, 1.f, 0.f };
     inline float rig_color[3] = { 1.f, 1.f, 1.f };
+    inline int health_position = 0;
 }

@@ -169,6 +169,10 @@ void draw_menu() {
             ImGui::Checkbox("Draw health", &cfg::health);
             ImGui::SameLine();
             ImGui::ColorEdit3("##healthcolor", cfg::health_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(100);
+            const char* health_positions[] = { "Left Vertical", "Bottom Horizontal" };
+            ImGui::Combo("##healthpos", &cfg::health_position, health_positions, 2);
             
             ImGui::Checkbox("Rig type", &cfg::rig_type);
             ImGui::SameLine();
