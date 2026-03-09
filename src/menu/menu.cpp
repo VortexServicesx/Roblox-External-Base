@@ -173,6 +173,10 @@ void draw_menu() {
             ImGui::SetNextItemWidth(100);
             const char* health_positions[] = { "Left Vertical", "Bottom Horizontal" };
             ImGui::Combo("##healthpos", &cfg::health_position, health_positions, 2);
+
+            ImGui::Checkbox("Draw distance", &cfg::show_distance);
+            ImGui::SameLine();
+            ImGui::ColorEdit3("##distcolor", cfg::distance_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
             ImGui::Checkbox("Rig type", &cfg::rig_type);
             ImGui::SameLine();
