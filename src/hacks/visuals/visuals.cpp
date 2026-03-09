@@ -131,7 +131,6 @@ void draw_esp() {
             if (hp_pct < 0.f) hp_pct = 0.f;
 
             if (cfg::health_position == 0) {
-                // Left vertical bar (original behavior)
                 float bar_w = 4.f;
                 float bar_h = h;
                 float bar_x = l - 1 - bar_w - 2.f;
@@ -142,7 +141,6 @@ void draw_esp() {
                 draw->AddRect({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 255));
             }
             else {
-                // Bottom horizontal bar
                 float bar_h = 4.f;
                 float bar_w = w;
                 float bar_x = l - 1;
