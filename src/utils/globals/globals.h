@@ -36,6 +36,7 @@ inline inst g_vis;
 inline std::vector<inst> g_players;
 inline uintptr_t g_game_id = 0;
 inline int g_player_count = 0;
+inline vec3 g_local_pos = {};;
 
 namespace cfg {
     inline bool esp = true;
@@ -49,4 +50,6 @@ namespace cfg {
     inline float health_color[3] = { 0.f, 1.f, 0.f };
     inline float rig_color[3] = { 1.f, 1.f, 1.f };
     inline int health_position = 0;
+    inline bool show_distance = true;
+    inline float distance_color[3] = { 1.f, 1.f, 1.f };
 }

@@ -115,7 +115,20 @@ void cache_loop() {
             
             std::string player_name = p.name();
             if (player_name.empty()) continue;
-            if (!local_username.empty() && player_name == local_username) continue;
+            if (!local_username.empty() && player_name == local_username) {
+                inst local_char = p.model();
+                if (local_char.addr) {
+                    for (inst& part : local_char.children()) {
+                        if (!part.addr) continue;
+                        if (part.name() == "HumanoidRootPart") {
+                            uintptr_t prim = g_mem->read<uintptr_t>(part.addr + offsets::BasePart::Primitive);
+                            if (prim) g_local_pos = g_mem->read<vec3>(prim + offsets::Primitive::Position);
+                            break;
+                        }
+                    }
+                }
+                continue;
+            }
             
             ent e;
             e.player = p;
@@ -169,6 +182,6 @@ void cache_loop() {
             sync_ents(g_ents, temp);
         }
         
-        std::this_thread::sleep_for(std::chrono::milliseconds(750));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }

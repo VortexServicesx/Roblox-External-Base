@@ -131,11 +131,11 @@ void draw_esp() {
             if (hp_pct < 0.f) hp_pct = 0.f;
 
             if (cfg::health_position == 0) {
+
                 float bar_w = 4.f;
                 float bar_h = h;
                 float bar_x = l - 1 - bar_w - 2.f;
                 float bar_y = t - 1;
-
                 draw->AddRectFilled({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 200));
                 draw->AddRectFilled({ bar_x, bar_y + bar_h * (1.f - hp_pct) }, { bar_x + bar_w, bar_y + bar_h }, health_col);
                 draw->AddRect({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 255));
@@ -150,6 +150,43 @@ void draw_esp() {
                 draw->AddRectFilled({ bar_x, bar_y }, { bar_x + bar_w * hp_pct, bar_y + bar_h }, health_col);
                 draw->AddRect({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 255));
             }
+        }
+
+        if (cfg::show_distance) {
+            vec3 root = {};
+            for (auto* p : parts) { root = p->pos; break; }
+
+            float dx = root.x - g_local_pos.x;
+            float dy = root.y - g_local_pos.y;
+            float dz = root.z - g_local_pos.z;
+            float dist = sqrtf(dx * dx + dy * dy + dz * dz);
+
+            char dist_buf[32];
+            snprintf(dist_buf, sizeof(dist_buf), "[%.1f]", dist);
+
+            static ImU32 dist_col = IM_COL32(255, 255, 255, 255);
+            static float last_dist_color[3] = { -1.f, -1.f, -1.f };
+            if (cfg::distance_color[0] != last_dist_color[0] ||
+                cfg::distance_color[1] != last_dist_color[1] ||
+                cfg::distance_color[2] != last_dist_color[2]) {
+                dist_col = IM_COL32(
+                    (int)(cfg::distance_color[0] * 255),
+                    (int)(cfg::distance_color[1] * 255),
+                    (int)(cfg::distance_color[2] * 255), 255);
+                last_dist_color[0] = cfg::distance_color[0];
+                last_dist_color[1] = cfg::distance_color[1];
+                last_dist_color[2] = cfg::distance_color[2];
+            }
+
+            ImVec2 txt_sz = ImGui::CalcTextSize(dist_buf);
+            float txt_x = l - 1 + (w - txt_sz.x) * 0.5f;
+            float txt_y = t - 1 + h + 2.f;
+
+            if (cfg::health && cfg::health_position == 1)
+                txt_y += 8.f;
+
+            draw->AddText({ txt_x + 1, txt_y + 1 }, IM_COL32(0, 0, 0, 255), dist_buf);
+            draw->AddText({ txt_x, txt_y }, dist_col, dist_buf);
         }
         
         if (cfg::rig_type) {
