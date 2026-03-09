@@ -129,15 +129,29 @@ void draw_esp() {
             float hp_pct = e.hp / e.max_hp;
             if (hp_pct > 1.f) hp_pct = 1.f;
             if (hp_pct < 0.f) hp_pct = 0.f;
-            
-            float bar_w = 4.f;
-            float bar_h = h;
-            float bar_x = l - 1 - bar_w - 2.f;
-            float bar_y = t - 1;
-            
-            draw->AddRectFilled({bar_x, bar_y}, {bar_x + bar_w, bar_y + bar_h}, IM_COL32(0, 0, 0, 200));
-            draw->AddRectFilled({bar_x, bar_y + bar_h * (1.f - hp_pct)}, {bar_x + bar_w, bar_y + bar_h}, health_col);
-            draw->AddRect({bar_x, bar_y}, {bar_x + bar_w, bar_y + bar_h}, IM_COL32(0, 0, 0, 255));
+
+            if (cfg::health_position == 0) {
+                // Left vertical bar (original behavior)
+                float bar_w = 4.f;
+                float bar_h = h;
+                float bar_x = l - 1 - bar_w - 2.f;
+                float bar_y = t - 1;
+
+                draw->AddRectFilled({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 200));
+                draw->AddRectFilled({ bar_x, bar_y + bar_h * (1.f - hp_pct) }, { bar_x + bar_w, bar_y + bar_h }, health_col);
+                draw->AddRect({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 255));
+            }
+            else {
+                // Bottom horizontal bar
+                float bar_h = 4.f;
+                float bar_w = w;
+                float bar_x = l - 1;
+                float bar_y = t - 1 + h + 2.f;
+
+                draw->AddRectFilled({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 200));
+                draw->AddRectFilled({ bar_x, bar_y }, { bar_x + bar_w * hp_pct, bar_y + bar_h }, health_col);
+                draw->AddRect({ bar_x, bar_y }, { bar_x + bar_w, bar_y + bar_h }, IM_COL32(0, 0, 0, 255));
+            }
         }
         
         if (cfg::rig_type) {

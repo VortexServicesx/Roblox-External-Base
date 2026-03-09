@@ -146,19 +146,19 @@ void draw_menu() {
     }
     
     ImGui::Begin("menu");
-    ImGui::Text("fps: %.1f", fps);
-    ImGui::Text("game: %llu | players: %d", g_game_id, g_player_count);
+    ImGui::Text("FPS: %.1f", fps);
+    ImGui::Text("Game: %llu | players: %d", g_game_id, g_player_count);
     ImGui::Separator();
     
     if (ImGui::BeginTabBar("tabs")) {
         if (ImGui::BeginTabItem("esp")) {
-            ImGui::Checkbox("enabled", &cfg::esp);
+            ImGui::Checkbox("Enabled", &cfg::esp);
             
-            ImGui::Checkbox("box", &cfg::box);
+            ImGui::Checkbox("Box", &cfg::box);
             ImGui::SameLine();
             ImGui::ColorEdit3("##boxcolor", cfg::box_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
-            ImGui::Checkbox("names", &cfg::names);
+            ImGui::Checkbox("Names", &cfg::names);
             ImGui::SameLine();
             ImGui::ColorEdit3("##namecolor", cfg::name_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             ImGui::SameLine();
@@ -166,11 +166,15 @@ void draw_menu() {
             const char* items[] = { "display", "username" };
             ImGui::Combo("##nametype", &cfg::name_type, items, 2);
             
-            ImGui::Checkbox("health", &cfg::health);
+            ImGui::Checkbox("Health", &cfg::health);
             ImGui::SameLine();
             ImGui::ColorEdit3("##healthcolor", cfg::health_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
-            
-            ImGui::Checkbox("rig type", &cfg::rig_type);
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(100);
+            const char* health_positions[] = { "Left Vertical", "Bottom Horizontal" };
+            ImGui::Combo("##healthpos", &cfg::health_position, health_positions, 2);
+
+            ImGui::Checkbox("Rig Type", &cfg::rig_type);
             ImGui::SameLine();
             ImGui::ColorEdit3("##rigcolor", cfg::rig_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
