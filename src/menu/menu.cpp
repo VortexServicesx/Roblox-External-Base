@@ -152,25 +152,25 @@ void draw_menu() {
     
     if (ImGui::BeginTabBar("tabs")) {
         if (ImGui::BeginTabItem("esp")) {
-            ImGui::Checkbox("enabled", &cfg::esp);
+            ImGui::Checkbox("Enabled", &cfg::esp);
             
-            ImGui::Checkbox("box", &cfg::box);
+            ImGui::Checkbox("Draw box", &cfg::box);
             ImGui::SameLine();
             ImGui::ColorEdit3("##boxcolor", cfg::box_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
-            ImGui::Checkbox("names", &cfg::names);
+            ImGui::Checkbox("Draw names", &cfg::names);
             ImGui::SameLine();
             ImGui::ColorEdit3("##namecolor", cfg::name_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             ImGui::SameLine();
             ImGui::SetNextItemWidth(100);
-            const char* items[] = { "display", "username" };
+            const char* items[] = { "Display name", "Username" };
             ImGui::Combo("##nametype", &cfg::name_type, items, 2);
             
-            ImGui::Checkbox("health", &cfg::health);
+            ImGui::Checkbox("Draw health", &cfg::health);
             ImGui::SameLine();
             ImGui::ColorEdit3("##healthcolor", cfg::health_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
-            ImGui::Checkbox("rig type", &cfg::rig_type);
+            ImGui::Checkbox("Rig type", &cfg::rig_type);
             ImGui::SameLine();
             ImGui::ColorEdit3("##rigcolor", cfg::rig_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
             
