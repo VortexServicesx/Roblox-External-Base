@@ -68,9 +68,9 @@ void draw_esp() {
         bool ok = false;
         
         for (auto* p : parts) {
-            vec3 pos = p->pos;
-            vec3 sz = p->size;
-            mat3 rot = p->rot;
+            vec3 pos = p->instance.pos();
+            vec3 sz = p->instance.size();
+            mat3 rot = p->instance.rot();
             
             vec3 half_sz = sz * 0.5f;
             
