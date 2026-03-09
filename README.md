@@ -15,7 +15,7 @@
 
 
 requires visual studio 2022 or 2026 with c++ installed
-
+note; if you encounter the error The build tools for v145 cannot be found. Install v145 to build using the v145 build tools., go to project > properties > platform toolset and set it to v143
 ```
 
 open kjs.sln
